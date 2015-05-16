@@ -91,58 +91,58 @@ def create_namespaces(dist, namespaces, location, ns_base=()):
 
 
 def main():
+    if not os.path.exists(location):
+        os.makedirs(location)
     for dist in pkg_resources.working_set.by_key.values():
         project_name = dist.project_name
-        if True:
-            print(project_name)
-            namespaces = {}
-            for line in dist._get_metadata('namespace_packages.txt'):
-                 ns = namespaces
-                 for part in line.split('.'):
-                     ns = ns.setdefault(part, {})
+        namespaces = {}
+        for line in dist._get_metadata('namespace_packages.txt'):
+            ns = namespaces
+            for part in line.split('.'):
+                ns = ns.setdefault(part, {})
 
-            top_level = sorted(list(dist._get_metadata('top_level.txt')))
-            create_namespaces(dist, namespaces, location)
+        top_level = sorted(list(dist._get_metadata('top_level.txt')))
+        #create_namespaces(dist, namespaces, location)
 
-            for package_name in top_level:
-                if package_name in namespaces:
-                    # These are processed in create_namespaces
+        for package_name in top_level:
+            if package_name in namespaces:
+                # These are processed in create_namespaces
+                continue
+            else:
+                if not os.path.isdir(dist.location):
+                    log.info(
+                        "(While processing egg %s) Package '%s' is "
+                        + "zipped. Skipping." % (
+                            project_name, package_name))
                     continue
-                else:
-                    if not os.path.isdir(dist.location):
-                        log.info(
-                            "(While processing egg %s) Package '%s' is "
-                            + "zipped. Skipping." % (
-                                project_name, package_name))
-                        continue
-                    package_location = os.path.join(dist.location, package_name)
-                    link_location = os.path.join(location, package_name)
-                    # check for single python module
-                    if not os.path.exists(package_location):
-                        package_location = os.path.join(dist.location, package_name + ".py")
-                        link_location = os.path.join(location, package_name + ".py")
-                    # check for native libs
-                    # XXX - this should use native_libs from above
-                    if not os.path.exists(package_location):
-                        package_location = os.path.join(dist.location, package_name + ".so")
-                        link_location = os.path.join(location, package_name + ".so")
-                    if not os.path.exists(package_location):
-                        package_location = os.path.join(dist.location, package_name + ".dll")
-                        link_location = os.path.join(location, package_name + ".dll")
-                    if not os.path.exists(package_location):
-                        log.warn(
-                            "Warning: (While processing egg %s) Package '%s' not found. "
-                            + "Skipping." % (project_name, package_name))
-                        continue
+                package_location = os.path.join(dist.location, package_name)
+                link_location = os.path.join(location, package_name)
+                # check for single python module
+                if not os.path.exists(package_location):
+                    package_location = os.path.join(dist.location, package_name + ".py")
+                    link_location = os.path.join(location, package_name + ".py")
+                # check for native libs
+                # XXX - this should use native_libs from above
+                if not os.path.exists(package_location):
+                    package_location = os.path.join(dist.location, package_name + ".so")
+                    link_location = os.path.join(location, package_name + ".so")
+                if not os.path.exists(package_location):
+                    package_location = os.path.join(dist.location, package_name + ".dll")
+                    link_location = os.path.join(location, package_name + ".dll")
+                if not os.path.exists(package_location):
+                    log.warn(
+                        "Warning: (While processing egg %s) Package '%s' not found. "
+                        + "Skipping." % (project_name, package_name))
+                    continue
 
-                    if not os.path.exists(link_location):
-                        if WIN32 and not os.path.isdir(package_location):
-                            log.warn("Warning: (While processing egg %s) Can't link files on Windows (%s -> %s). Skipping." % (project_name, package_location, link_location))
-                            continue
-                        try:
-                            symlink(package_location, link_location)
-                        except OSError as e:
-                            log.warn("While processing egg %s) symlink fails (%s, %s). Skipping.\nOriginal Exception:\n%s" % (project_name, package_location, link_location, str(e)))
+                if not os.path.exists(link_location):
+                    if WIN32 and not os.path.isdir(package_location):
+                        log.warn("Warning: (While processing egg %s) Can't link files on Windows (%s -> %s). Skipping." % (project_name, package_location, link_location))
+                        continue
+                    try:
+                        symlink(package_location, link_location)
+                    except OSError as e:
+                        log.warn("While processing egg %s) symlink fails (%s, %s). Skipping.\nOriginal Exception:\n%s" % (project_name, package_location, link_location, str(e)))
 
 
 if __name__ == "__main__":
