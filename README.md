@@ -16,7 +16,10 @@ pip install scramble
 Running
 -------
 
-By default, scramble will symlink the packages available into a folder "scramble"
+By default, scramble will symlink the packages available into a folder "scrambled"
+
+
+Run with the command:
 
 ```
 scramble

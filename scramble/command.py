@@ -14,7 +14,7 @@ import argparse
 import logging
 log = logging.getLogger("scramble")
 
-location = os.path.abspath('scramble')
+location = os.path.abspath('scrambled')
 
 
 WIN32 = False
