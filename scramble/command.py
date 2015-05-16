@@ -14,8 +14,6 @@ import argparse
 import logging
 log = logging.getLogger("scramble")
 
-location = os.path.abspath('scrambled')
-
 
 WIN32 = False
 if sys.platform[:3].lower() == "win":
@@ -92,6 +90,8 @@ def create_namespaces(dist, namespaces, location, ns_base=()):
 
 
 def main():
+    location = os.path.abspath('scrambled')
+
     parser = argparse.ArgumentParser(
         prog="scramble",
         description='scramble symlinks to python packages into a folder')
