@@ -9,6 +9,7 @@ import os
 import sys
 import shutil
 import pkg_resources
+import argparse
 
 import logging
 log = logging.getLogger("scramble")
@@ -91,6 +92,18 @@ def create_namespaces(dist, namespaces, location, ns_base=()):
 
 
 def main():
+    parser = argparse.ArgumentParser(
+        prog="scramble",
+        description='scramble symlinks to python packages into a folder')
+
+    parser.add_argument(
+        "--target", 
+        help="target folder")
+    parsed = parser.parse_args(sys.argv[1:])
+
+    if parsed.target:
+        location = os.path.abspath(parsed.target)
+    
     if not os.path.exists(location):
         os.makedirs(location)
     for dist in pkg_resources.working_set.by_key.values():
@@ -102,7 +115,7 @@ def main():
                 ns = ns.setdefault(part, {})
 
         top_level = sorted(list(dist._get_metadata('top_level.txt')))
-        #create_namespaces(dist, namespaces, location)
+        create_namespaces(dist, namespaces, location)
 
         for package_name in top_level:
             if package_name in namespaces:
