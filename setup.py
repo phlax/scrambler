@@ -15,7 +15,7 @@ tests_require = install_requires + ['collective.recipe.omelette']
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-long_description = read("README.md")
+long_description = read("README.rst")
 
 setup(
     name='scrambler',
