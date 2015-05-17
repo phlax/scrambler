@@ -56,7 +56,9 @@ else:
 
 
 def create_namespaces(dist, namespaces, location, ns_base=()):
-        
+    iterator = namespaces.items
+    
+    
     if hasattr(namespaces, "iteritems"):
         # python 2
         iterator = namespaces.iteritems

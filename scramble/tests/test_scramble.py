@@ -99,5 +99,4 @@ class ScrambleTestCase(unittest.TestCase):
                     and not x.startswith("__")]
 
             expected = sorted(set(expected))
-
             self.assertEqual(linked, expected)
