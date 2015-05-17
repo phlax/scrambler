@@ -56,8 +56,7 @@ else:
 
 
 def create_namespaces(dist, namespaces, location, ns_base=()):
-    iterator = namespaces.items
-
+        
     if hasattr(namespaces, "iteritems"):
         # python 2
         iterator = namespaces.iteritems
@@ -70,7 +69,7 @@ def create_namespaces(dist, namespaces, location, ns_base=()):
             os.makedirs(link_dir)
 
         if len(v) > 0:
-            create_namespaces(v, location, ns_parts)
+            create_namespaces(dist, v, location, ns_parts)
         egg_ns_dir = os.path.join(dist.location, *ns_parts)
 
         if not os.path.isdir(egg_ns_dir):
