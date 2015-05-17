@@ -10,6 +10,10 @@ from scramble import __version__ as version
 install_requires = [
     'setuptools']
 
+# collective.recipe.omelette is only installed as it provides a
+# good example of a namespaced package
+tests_require = install_requires + ['collective.recipe.omelette']
+
 setup(
     name='scramble',
     version=version,
@@ -26,6 +30,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     test_suite="scramble.tests",
+    tests_require=tests_require,
     zip_safe=False,
     install_requires=install_requires,
     entry_points={

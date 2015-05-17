@@ -42,8 +42,6 @@ class ScrambleTestCase(unittest.TestCase):
             else:
                 linked.append(link)
 
-        print(linked)
-        print(expected) 
         self.assertEqual(
             sorted(linked),
             sorted(expected))
