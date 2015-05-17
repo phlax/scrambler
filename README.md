@@ -7,6 +7,9 @@ Scramble symlinks active python packages into a folder.
 
 This allows quick traversal to available modules during development, and places namespaced packages into a logical filesystem.
 
+This package was inspired by [collective.recipe.omelette](https://github.com/collective/collective), but does not require
+a buildout environment to run
+
 
 Installation
 ------------
