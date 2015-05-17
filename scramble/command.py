@@ -54,6 +54,7 @@ else:
     rmtree = shutil.rmtree
     unlink = None
 
+
 def create_namespaces(dist, namespaces, location, ns_base=()):
     iterator = namespaces.items
 
@@ -89,7 +90,7 @@ def create_namespaces(dist, namespaces, location, ns_base=()):
             symlink(src, dst)
 
 
-def main():
+def main(args=None):
     location = os.path.abspath('scrambled')
 
     parser = argparse.ArgumentParser(
@@ -99,13 +100,14 @@ def main():
     parser.add_argument(
         "--target", 
         help="target folder")
-    parsed = parser.parse_args(sys.argv[1:])
+    parsed = parser.parse_args(args or [])
 
     if parsed.target:
         location = os.path.abspath(parsed.target)
     
     if not os.path.exists(location):
         os.makedirs(location)
+
     for dist in pkg_resources.working_set.by_key.values():
         project_name = dist.project_name
         namespaces = {}
@@ -159,4 +161,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
