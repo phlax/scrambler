@@ -12,6 +12,11 @@ install_requires = ['setuptools']
 # good example of a namespaced package
 tests_require = install_requires + ['collective.recipe.omelette']
 
+def read(*rnames):
+    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
+
+long_description = read("README.md")
+
 setup(
     name='scrambler',
     version=version,
@@ -19,14 +24,17 @@ setup(
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
+        "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.2",
         "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
     keywords='',
+    long_description=long_description,
     author='Ryan Northey',
     author_email='ryan@3ca.org.uk',
     url='http://github.com/phlax/scrambler',
