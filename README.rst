@@ -39,7 +39,8 @@ scrambler --target foo
 Build status
 ------------
 
-[![Build Status](https://travis-ci.org/phlax/scrambler.svg?branch=master)](https://travis-ci.org/phlax/scrambler)
 
+.. image:: https://travis-ci.org/phlax/scrambler.svg?branch=master
+	       :target: https://travis-ci.org/phlax/scrambler
 
 .. _collective.recipe.omelette: https://github.com/collective/collective.recipe.omelette
