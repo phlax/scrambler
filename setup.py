@@ -24,6 +24,7 @@ setup(
     name='scrambler',
     version=version,
     description="Symlink (namespaced) python packages into a single folder to aid development",
+    long_description=long_description,
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
@@ -37,7 +38,6 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
     keywords='',
-    long_description=long_description,
     author='Ryan Northey',
     author_email='ryan@3ca.org.uk',
     url='http://github.com/phlax/scrambler',

@@ -11,6 +11,7 @@ This allows quick traversal to available modules during development, and places 
 This package was inspired by collective.recipe.omelette_, but does not require
 a buildout environment to run
 
+.. _collective.recipe.omelette: https://github.com/collective/collective.recipe.omelette
 
 Installation
 ------------
@@ -43,4 +44,4 @@ Build status
 .. image:: https://travis-ci.org/phlax/scrambler.svg?branch=master
 	       :target: https://travis-ci.org/phlax/scrambler
 
-.. _collective.recipe.omelette: https://github.com/collective/collective.recipe.omelette
+
