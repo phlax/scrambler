@@ -3,7 +3,7 @@ Scramble
 
 Modern python environments tend to place the active packages in different places in the filesystem.
 
-Scramble symlinks active python packages into a folder.
+Scramble symlinks active python packages into a single folder.
 
 This allows quick traversal to available modules during development, and places namespaced packages into a logical filesystem.
 
