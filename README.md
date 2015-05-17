@@ -1,11 +1,12 @@
 Scramble
 ========
 
-Scramble symlinks python packages into a folder.
+Modern python environments tend to place the active packages in different places in the filesystem.
 
-This allows quick traversal to available modules during development.
+Scramble symlinks active python packages into a folder.
 
-Namespaced packages are symlinked together.
+This allows quick traversal to available modules during development, and places namespaced packages into a logical filesystem.
+
 
 Installation
 ------------
