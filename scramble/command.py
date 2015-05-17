@@ -62,16 +62,17 @@ def create_namespaces(dist, namespaces, location, ns_base=()):
         # python 2
         iterator = namespaces.iteritems
 
-    for k, v in iterator():
+    for k, v in iterator():        
         ns_parts = ns_base + (k,)
         link_dir = os.path.join(location, *ns_parts)
 
         if not os.path.exists(link_dir):
-            if not os.makedirs(link_dir):
-                continue
+            os.makedirs(link_dir)
+
         if len(v) > 0:
             create_namespaces(v, location, ns_parts)
         egg_ns_dir = os.path.join(dist.location, *ns_parts)
+
         if not os.path.isdir(egg_ns_dir):
             log.info(
                 "(While processing egg %s) Package '%s' is zipped. "

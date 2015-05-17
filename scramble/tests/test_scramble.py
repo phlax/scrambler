@@ -70,3 +70,34 @@ class ScrambleTestCase(unittest.TestCase):
             sorted(linked),
             sorted(expected))
         
+
+    def test_scramble_command_namespaced(self):
+        main()
+
+        ws = pkg_resources.working_set        
+
+        namespaces = {}
+        for name, dist in ws.by_key.items():
+            for line in dist._get_metadata('namespace_packages.txt'):
+                ns = line.split('.')[0]
+                if not ns in namespaces:
+                    namespaces[ns] = []
+                namespaces[ns].append(dist)
+
+        for namespace, dists in namespaces.items():
+            linked = sorted(
+                [x for x in os.listdir(
+                    os.path.join(SCRAMBLE_TMP, 'scrambled', namespace))
+                 if os.path.isdir(os.path.join(SCRAMBLE_TMP, 'scrambled', namespace, x))
+                 and not x.startswith('__')])
+
+            expected = []
+            for dist in dists:
+                expected += [
+                    x for x in os.listdir(os.path.join(dist.location, namespace))
+                    if os.path.isdir(os.path.join(dist.location, namespace, x))
+                    and not x.startswith("__")]
+
+            expected = sorted(set(expected))
+
+            self.assertEqual(linked, expected)
