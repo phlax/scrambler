@@ -1,6 +1,9 @@
 """
 scrambler
 """
+
+import os
+
 from setuptools import setup, find_packages
 
 from scrambler import __version__ as version
