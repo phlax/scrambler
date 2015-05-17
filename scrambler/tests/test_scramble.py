@@ -4,28 +4,28 @@ import unittest
 
 import pkg_resources
 
-from scramble.command import main
+from scrambler.command import main
 
-SCRAMBLE_TMP = '/tmp/scramble_tests'
+SCRAMBLER_TMP = '/tmp/scrambler_tests'
 
 
-class ScrambleTestCase(unittest.TestCase):
+class ScramblerTestCase(unittest.TestCase):
 
     def setUp(self):
         self.start_dir = os.getcwd()
-        super(ScrambleTestCase, self).setUp()
-        os.makedirs(SCRAMBLE_TMP)
-        os.chdir(SCRAMBLE_TMP)
+        super(ScramblerTestCase, self).setUp()
+        os.makedirs(SCRAMBLER_TMP)
+        os.chdir(SCRAMBLER_TMP)
         
     def tearDown(self):
-        super(ScrambleTestCase, self).tearDown()
+        super(ScramblerTestCase, self).tearDown()
         os.chdir(self.start_dir)
-        shutil.rmtree(SCRAMBLE_TMP)
+        shutil.rmtree(SCRAMBLER_TMP)
         
-    def test_scramble_command(self):
+    def test_scrambler_command(self):
         main()
         self.assertEqual(
-            os.listdir(SCRAMBLE_TMP), ['scrambled'])
+            os.listdir(SCRAMBLER_TMP), ['scrambled'])
 
         ws = pkg_resources.working_set
 
@@ -36,7 +36,7 @@ class ScrambleTestCase(unittest.TestCase):
         expected = set(expected)
 
         linked = []
-        for link in os.listdir(os.path.join(SCRAMBLE_TMP, 'scrambled')):
+        for link in os.listdir(os.path.join(SCRAMBLER_TMP, 'scrambled')):
             if link.endswith(".py"):
                 linked.append(link[:-3])
             else:
@@ -46,10 +46,10 @@ class ScrambleTestCase(unittest.TestCase):
             sorted(linked),
             sorted(expected))
 
-    def test_scramble_command_custom_dir(self):
+    def test_scrambler_command_custom_dir(self):
         main(['--target', 'custom_scrambled'])
         self.assertEqual(
-            os.listdir(SCRAMBLE_TMP), ['custom_scrambled'])
+            os.listdir(SCRAMBLER_TMP), ['custom_scrambled'])
 
         ws = pkg_resources.working_set
 
@@ -60,7 +60,7 @@ class ScrambleTestCase(unittest.TestCase):
         expected = set(expected)
 
         linked = []
-        for link in os.listdir(os.path.join(SCRAMBLE_TMP, 'custom_scrambled')):
+        for link in os.listdir(os.path.join(SCRAMBLER_TMP, 'custom_scrambled')):
             if link.endswith(".py"):
                 linked.append(link[:-3])
             else:
@@ -71,7 +71,7 @@ class ScrambleTestCase(unittest.TestCase):
             sorted(expected))
         
 
-    def test_scramble_command_namespaced(self):
+    def test_scrambler_command_namespaced(self):
         main()
 
         ws = pkg_resources.working_set        
@@ -87,8 +87,8 @@ class ScrambleTestCase(unittest.TestCase):
         for namespace, dists in namespaces.items():
             linked = sorted(
                 [x for x in os.listdir(
-                    os.path.join(SCRAMBLE_TMP, 'scrambled', namespace))
-                 if os.path.isdir(os.path.join(SCRAMBLE_TMP, 'scrambled', namespace, x))
+                    os.path.join(SCRAMBLER_TMP, 'scrambled', namespace))
+                 if os.path.isdir(os.path.join(SCRAMBLER_TMP, 'scrambled', namespace, x))
                  and not x.startswith('__')])
 
             expected = []

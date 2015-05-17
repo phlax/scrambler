@@ -1,9 +1,9 @@
-Scramble
+Scrambler
 ========
 
 Modern python environments tend to place the active packages in different places in the filesystem.
 
-Scramble symlinks active python packages into a single folder.
+Scrambler symlinks active python packages into a single folder.
 
 This allows quick traversal to available modules during development, and places namespaced packages into a logical filesystem.
 
@@ -14,28 +14,28 @@ a buildout environment to run
 Installation
 ------------
 
-pip install scramble
+pip install scrambler
 
 
 Running
 -------
 
-By default, scramble will symlink the packages available into a folder "scrambled"
+By default, scrambler will symlink the packages available into a folder "scrambled"
 
 
 Run with the command:
 
 ```
-scramble
+scrambler
 ```
 
 You can specify a different folder with the target option
 
 ```
-scramble --target foo
+scrambler --target foo
 ```
 
 Build status
 ------------
 
-[![Build Status](https://travis-ci.org/phlax/scramble.svg?branch=master)](https://travis-ci.org/phlax/scramble)
+[![Build Status](https://travis-ci.org/phlax/scrambler.svg?branch=master)](https://travis-ci.org/phlax/scrambler)

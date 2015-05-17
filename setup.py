@@ -1,9 +1,9 @@
 """
-scramble
+scrambler
 """
 from setuptools import setup, find_packages
 
-from scramble import __version__ as version
+from scrambler import __version__ as version
 
 
 install_requires = ['setuptools']
@@ -13,7 +13,7 @@ install_requires = ['setuptools']
 tests_require = install_requires + ['collective.recipe.omelette']
 
 setup(
-    name='scramble',
+    name='scrambler',
     version=version,
     description="Symlink (namespaced) python packages into a single folder to aid development",
     classifiers=[
@@ -29,14 +29,14 @@ setup(
     keywords='',
     author='Ryan Northey',
     author_email='ryan@3ca.org.uk',
-    url='http://github.com/phlax/scramble',
+    url='http://github.com/phlax/scrambler',
     license='GPL',
     packages=find_packages(),
     include_package_data=True,
-    test_suite="scramble.tests",
+    test_suite="scrambler.tests",
     tests_require=tests_require,
     zip_safe=False,
     install_requires=install_requires,
     entry_points={
         'console_scripts': [
-            'scramble = scramble.command:main']})
+            'scrambler = scrambler.command:main']})

@@ -12,7 +12,7 @@ import pkg_resources
 import argparse
 
 import logging
-log = logging.getLogger("scramble")
+log = logging.getLogger("scrambler")
 
 
 WIN32 = False
@@ -95,8 +95,8 @@ def main(args=None):
     location = os.path.abspath('scrambled')
 
     parser = argparse.ArgumentParser(
-        prog="scramble",
-        description='scramble symlinks to python packages into a folder')
+        prog="scrambler",
+        description='scrambler symlinks to python packages into a folder')
 
     parser.add_argument(
         "--target",
