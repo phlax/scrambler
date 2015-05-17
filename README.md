@@ -31,3 +31,8 @@ You can specify a different folder with the target option
 ```
 scramble --target foo
 ```
+
+Build status
+------------
+
+[![Build Status](https://travis-ci.org/phlax/scramble.svg?branch=master)](https://travis-ci.org/phlax/scramble)
