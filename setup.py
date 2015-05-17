@@ -1,7 +1,6 @@
 """
 scramble
 """
-import sys
 from setuptools import setup, find_packages
 
 from scramble import __version__ as version
@@ -35,5 +34,4 @@ setup(
     install_requires=install_requires,
     entry_points={
         'console_scripts': [
-            'scramble = scramble.command:main',
-    ]})
+            'scramble = scramble.command:main']})

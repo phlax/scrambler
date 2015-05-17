@@ -57,13 +57,12 @@ else:
 
 def create_namespaces(dist, namespaces, location, ns_base=()):
     iterator = namespaces.items
-    
-    
+
     if hasattr(namespaces, "iteritems"):
         # python 2
         iterator = namespaces.iteritems
 
-    for k, v in iterator():        
+    for k, v in iterator():
         ns_parts = ns_base + (k,)
         link_dir = os.path.join(location, *ns_parts)
 
@@ -78,7 +77,7 @@ def create_namespaces(dist, namespaces, location, ns_base=()):
             log.info(
                 "(While processing egg %s) Package '%s' is zipped. "
                 + "Skipping." % (
-                    project_name, os.path.sep.join(ns_parts)))
+                    dist.project_name, os.path.sep.join(ns_parts)))
             continue
         dirs = os.listdir(egg_ns_dir)
         for name in dirs:
@@ -100,13 +99,13 @@ def main(args=None):
         description='scramble symlinks to python packages into a folder')
 
     parser.add_argument(
-        "--target", 
+        "--target",
         help="target folder")
     parsed = parser.parse_args(args or [])
 
     if parsed.target:
         location = os.path.abspath(parsed.target)
-    
+
     if not os.path.exists(location):
         os.makedirs(location)
 
@@ -136,30 +135,46 @@ def main(args=None):
                 link_location = os.path.join(location, package_name)
                 # check for single python module
                 if not os.path.exists(package_location):
-                    package_location = os.path.join(dist.location, package_name + ".py")
-                    link_location = os.path.join(location, package_name + ".py")
+                    package_location = os.path.join(
+                        dist.location, package_name + ".py")
+                    link_location = os.path.join(
+                        location, package_name + ".py")
                 # check for native libs
                 # XXX - this should use native_libs from above
                 if not os.path.exists(package_location):
-                    package_location = os.path.join(dist.location, package_name + ".so")
-                    link_location = os.path.join(location, package_name + ".so")
+                    package_location = os.path.join(
+                        dist.location, package_name + ".so")
+                    link_location = os.path.join(
+                        location, package_name + ".so")
                 if not os.path.exists(package_location):
-                    package_location = os.path.join(dist.location, package_name + ".dll")
-                    link_location = os.path.join(location, package_name + ".dll")
+                    package_location = os.path.join(
+                        dist.location, package_name + ".dll")
+                    link_location = os.path.join(
+                        location, package_name + ".dll")
                 if not os.path.exists(package_location):
                     log.warn(
-                        "Warning: (While processing egg %s) Package '%s' not found. "
-                        + "Skipping." % (project_name, package_name))
+                        "Warning: (While processing egg %s) Package '%s' "
+                        + "not found. Skipping." % (
+                            project_name, package_name))
                     continue
 
                 if not os.path.exists(link_location):
                     if WIN32 and not os.path.isdir(package_location):
-                        log.warn("Warning: (While processing egg %s) Can't link files on Windows (%s -> %s). Skipping." % (project_name, package_location, link_location))
+                        log.warn(
+                            "Warning: (While processing egg %s) Can't link "
+                            + "files on Windows (%s -> %s). Skipping." % (
+                                project_name, package_location, link_location))
                         continue
                     try:
                         symlink(package_location, link_location)
                     except OSError as e:
-                        log.warn("While processing egg %s) symlink fails (%s, %s). Skipping.\nOriginal Exception:\n%s" % (project_name, package_location, link_location, str(e)))
+                        warning = (
+                            "While processing egg %s) symlink fails "
+                            + "(%s, %s). Skipping.\nOriginal Exception:\n%s")
+                        log.warn(
+                            warning % (
+                                project_name, package_location,
+                                link_location, str(e)))
 
 
 if __name__ == "__main__":
