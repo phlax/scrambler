@@ -1,9 +1,5 @@
-#!/home/phlax/.virtualenvs/pig/bin/python3.4
-
-
 # CRIBBED FROM
 # https://github.com/collective/collective.recipe.omelette/blob/master/collective/recipe/omelette/__init__.py
-
 
 import os
 import sys
@@ -168,6 +164,7 @@ def main(args=None):
                     try:
                         symlink(package_location, link_location)
                     except OSError as e:
+                        # TODO: deal with dangling symlinks
                         warning = (
                             "While processing egg %s) symlink fails "
                             + "(%s, %s). Skipping.\nOriginal Exception:\n%s")
