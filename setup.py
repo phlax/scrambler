@@ -15,6 +15,7 @@ install_requires = ['distribute']
 # good example of a namespaced package
 tests_require = install_requires + ['collective.recipe.omelette']
 
+
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
@@ -23,7 +24,9 @@ long_description = read("README.rst")
 setup(
     name='scrambler',
     version=version,
-    description="Symlink (namespaced) python packages into a single folder to aid development",
+    description=(
+        "Symlink (namespaced) python packages into a "
+        + "single folder to aid development"),
     long_description=long_description,
     classifiers=[
         "Development Status :: 4 - Beta",
