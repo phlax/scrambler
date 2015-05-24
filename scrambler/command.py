@@ -122,9 +122,11 @@ def main(args=None):
                 continue
             else:
                 if not os.path.isdir(dist.location):
-                    log.info(
+                    info_message = (
                         "(While processing egg %s) Package '%s' is "
-                        + "zipped. Skipping." % (
+                        + "zipped. Skipping.")
+                    log.info(
+                        info_message % (
                             project_name, package_name))
                     continue
                 package_location = os.path.join(dist.location, package_name)
