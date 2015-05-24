@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 from scrambler import __version__ as version
 
 
-install_requires = ['setuptools']
+install_requires = ['distribute']
 
 # collective.recipe.omelette is only installed as it provides a
 # good example of a namespaced package
