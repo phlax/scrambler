@@ -97,7 +97,7 @@ def main(args=None):
     parser.add_argument(
         "--target",
         help="target folder")
-    parsed = parser.parse_args(args or [])
+    parsed = parser.parse_args(args or sys.argv[1:] or [])
 
     if parsed.target:
         location = os.path.abspath(parsed.target)
