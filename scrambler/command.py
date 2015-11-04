@@ -97,7 +97,15 @@ def main(args=None):
     parser.add_argument(
         "--target",
         help="target folder")
-    parsed = parser.parse_args(args or sys.argv[1:] or [])
+
+    # when called through 'python setup.py test' we have to ignore the
+    # first passed argument
+    if sys.argv[1:] == ['test']:
+        args = args or []
+    else:
+        args = args or sys.argv[1:] or []
+
+    parsed = parser.parse_args(args)
 
     if parsed.target:
         location = os.path.abspath(parsed.target)
