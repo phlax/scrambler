@@ -72,7 +72,7 @@ def create_namespaces(dist, namespaces, location, ns_base=()):
         if not os.path.isdir(egg_ns_dir):
             log.info(
                 "(While processing egg %s) Package '%s' is zipped. "
-                + "Skipping." % (
+                "Skipping." % (
                     dist.project_name, os.path.sep.join(ns_parts)))
             continue
         dirs = os.listdir(egg_ns_dir)
@@ -97,7 +97,15 @@ def main(args=None):
     parser.add_argument(
         "--target",
         help="target folder")
-    parsed = parser.parse_args(args or [])
+
+    # when called through 'python setup.py test' we have to ignore the
+    # first passed argument
+    if sys.argv[1:] == ['test']:
+        args = args or []
+    else:
+        args = args or sys.argv[1:] or []
+
+    parsed = parser.parse_args(args)
 
     if parsed.target:
         location = os.path.abspath(parsed.target)
@@ -124,7 +132,7 @@ def main(args=None):
                 if not os.path.isdir(dist.location):
                     info_message = (
                         "(While processing egg %s) Package '%s' is "
-                        + "zipped. Skipping.")
+                        "zipped. Skipping.")
                     log.info(
                         info_message % (
                             project_name, package_name))
@@ -152,7 +160,7 @@ def main(args=None):
                 if not os.path.exists(package_location):
                     log.warn(
                         "Warning: (While processing egg %s) Package '%s' "
-                        + "not found. Skipping." % (
+                        "not found. Skipping." % (
                             project_name, package_name))
                     continue
 
@@ -160,7 +168,7 @@ def main(args=None):
                     if WIN32 and not os.path.isdir(package_location):
                         log.warn(
                             "Warning: (While processing egg %s) Can't link "
-                            + "files on Windows (%s -> %s). Skipping." % (
+                            "files on Windows (%s -> %s). Skipping." % (
                                 project_name, package_location, link_location))
                         continue
                     try:
@@ -169,7 +177,7 @@ def main(args=None):
                         # TODO: deal with dangling symlinks
                         warning = (
                             "While processing egg %s) symlink fails "
-                            + "(%s, %s). Skipping.\nOriginal Exception:\n%s")
+                            "(%s, %s). Skipping.\nOriginal Exception:\n%s")
                         log.warn(
                             warning % (
                                 project_name, package_location,
